@@ -19,6 +19,6 @@ result:
 }
 explanation: They want a house above $454000, so that is the minimum price. They want a house for them and their 5 friends, so the total is 6 people. They also say they want to be near the ocean, so water is true. They say they want a 10000 sq ft house, square_ft is set to 10000.
 
-Using the above, respond to the request below. Output only your json response and nothing else.
+Using the above, respond to the request below. Output only your json response and nothing else. Think for yourself.
 
 "{Prompt-Text}"
