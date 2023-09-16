@@ -4,7 +4,10 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import Link from "@mui/material/Link";
-import {AppBar, Button, TextField, Toolbar} from "@mui/material";
+import {AppBar, Button, IconButton, InputAdornment, TextField, Toolbar} from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+
+export let markers = null;
 
 function Footer() {
     return (
@@ -27,26 +30,30 @@ function ButtonAppBar() {
     );
 }
 
-function SearchBar() {
+function fetchFromBackend(value) {
     const apiURL = "http://localhost:5000/housing_query?"
+    // GET Request that puts data into responseData;
+    fetch(apiURL + new URLSearchParams({
+        query_text: value,
+    }), {
+        options: 'GET',
+    })
+        .then(response => {return response.json()})
+        .then(responseData => {
+            markers = responseData;
+            console.log(markers)
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+        });
+}
+function SearchBar() {
 
     const handleEnter = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
             const value = e.target.value;
-
-
-            // GET Request that puts data into responseData;
-            fetch(apiURL + new URLSearchParams({
-                query_text: value,
-            }), {
-                options: 'GET',
-            })
-                .then(response => {return response.json()})
-                .then(responseData => {console.log(responseData)})
-                .catch(error => {
-                    console.error('There was an error!', error);
-                });
+            fetchFromBackend(value)
         }
     };
 
@@ -57,10 +64,25 @@ function SearchBar() {
                 id="filled-start-adornment"
                 sx={{ m: 1, width: '50ch' }}
                 onKeyDown={(e) => handleEnter(e)}
+                helperText="Press enter to submit"
                 variant="filled"
+                InputProps={{
+                endAdornment: (
+                    <InputAdornment position='end'>
+                        <IconButton type="button"
+                                    sx={{ p: '10px' }}
+                                    aria-label="search"
+                                    onClick={(e) => fetchFromBackend(e.target.value)}>
+                            <SearchIcon />
+                        </IconButton>
+                    </InputAdornment>
+                ),
+                }}
             />
 
+
         </div>
+        // https://stackoverflow.com/questions/51694149/add-element-inside-textfield-component-material-ui
 
     )
 
