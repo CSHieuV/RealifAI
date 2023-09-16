@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fontsource/quicksand": "^5.0.8",
     "@googlemaps/react-wrapper": "github:googlemaps/react-wrapper",
     "@mui/icons-material": "^5.14.9",
     "@mui/material": "^5.14.9",

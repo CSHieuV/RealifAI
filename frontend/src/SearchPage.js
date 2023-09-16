@@ -8,9 +8,18 @@ import {AppBar, Button, IconButton, InputAdornment, TextField, Toolbar} from "@m
 import SearchIcon from '@mui/icons-material/Search';
 import { CircularProgress, Tooltip } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import "@fontsource/quicksand"; // Defaults to weight 400
+
 
 export let markers = null;
 let isLoading = false; // Dummy variable for loading state
+
+const theme = createTheme({
+    typography: {
+        fontFamily: 'Quicksand',
+    },
+});
 
 function Footer() {
     return (
@@ -71,7 +80,7 @@ function SearchBar() {
         <div>
             <TextField
                 label="Search properties"
-                placeholder="Enter city, neighborhood, or keyword..."
+                placeholder="Your ideals lie here!"
                 id="filled-start-adornment"
                 sx={{ m: 1, width: '50ch' }}
                 onKeyDown={(e) => handleEnter(e)}
@@ -104,6 +113,7 @@ function SearchBar() {
 
 export default function SearchPage() {
     return (
+        <ThemeProvider theme={theme}>
         <Box
             sx={{
                 display: 'flex',
@@ -143,5 +153,6 @@ export default function SearchPage() {
                 </Container>
             </Box>
         </Box>
+        </ThemeProvider>
     )
 }
