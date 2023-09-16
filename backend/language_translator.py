@@ -1,5 +1,5 @@
 import openai
-from Backend.HousingReqs import HousingReqs
+from backend.HousingReqs import HousingReqs
 
 
 def read_env():
