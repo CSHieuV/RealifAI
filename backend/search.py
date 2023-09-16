@@ -39,9 +39,6 @@ print(cal_data)
 
 
 
-
-
-
 # def closest_houses(housing_data, requisites, n=10):
 #     """
 #     Returns the n closest houses to the given requisites.
