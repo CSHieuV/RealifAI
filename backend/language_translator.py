@@ -32,6 +32,7 @@ def find_reqs(query: str) -> HousingReqs:
         housing_reqs.water = reqs_json.get("water", None)
         housing_reqs.square_ft = reqs_json.get("square_ft", None)
         housing_reqs.newer_housing = reqs_json.get("newer_housing", None)
+        housing_reqs.location = reqs_json.get("location", None)
 
         return housing_reqs
 
