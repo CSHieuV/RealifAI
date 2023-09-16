@@ -13,3 +13,6 @@ class HousingReqs:
     # good_schools: bool
     # city_name: Optional[str]
     # basement: bool
+
+    def __init__(self):
+        pass
