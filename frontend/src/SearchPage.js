@@ -2,11 +2,9 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 import * as React from "react";
 import Link from "@mui/material/Link";
 import {AppBar, Button, TextField, Toolbar} from "@mui/material";
-import {useEffect, useState} from "react";
 
 function Footer() {
     return (
@@ -30,21 +28,16 @@ function ButtonAppBar() {
 }
 
 function SearchBar() {
-    const [search, setSearch] = useState("");
-
-    const [data, setData] = useState(null);
-
-    const apiURL = "httpbin.org/get"
+    const apiURL = "https://httpbin.org/anything?"
 
     const handleEnter = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
             const value = e.target.value;
-            setSearch(value);
 
 
             // GET Request that puts data into responseData;
-            fetch('https://httpbin.org/anything?' + new URLSearchParams({
+            fetch(apiURL + new URLSearchParams({
                 query: value
             }), {
                 options: 'GET'
@@ -101,10 +94,6 @@ export default function SearchPage() {
                     py: 3,
                     px: 2,
                     mt: 'auto',
-                    backgroundColor: (theme) =>
-                        theme.palette.mode === 'light'
-                            ? theme.palette.grey[200]
-                            : theme.palette.grey[800],
                 }}
             >
                 <Container maxWidth="sm">
