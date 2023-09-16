@@ -2,11 +2,9 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 import * as React from "react";
 import Link from "@mui/material/Link";
 import {AppBar, Button, TextField, Toolbar} from "@mui/material";
-import {useState} from "react";
 
 function Footer() {
     return (
@@ -30,37 +28,24 @@ function ButtonAppBar() {
 }
 
 function SearchBar() {
-    const [search, setSearch] = useState("");
-
-    const [data, setData] = useState(null);
-
-    const apiURL = "httpbin.org/get"
+    const apiURL = "https://httpbin.org/anything?"
 
     const handleEnter = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
-            setSearch(e.target.value);
-            console.log(search)
+            const value = e.target.value;
 
-            // GET Request that puts data into responseData
-            fetch(apiURL, {
-                method: 'GET',
-                headers: {
-                    "AMONG": "us,"
-                }
+
+            // GET Request that puts data into responseData;
+            fetch(apiURL + new URLSearchParams({
+                query: value
+            }), {
+                options: 'GET'
             })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    console.log(response)
-                    return response.json();
-                })
-                .then((responseData) => {
-                    setData(responseData);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
+                .then(response => {return response.json()})
+                .then(responseData => {console.log(responseData)})
+                .catch(error => {
+                    console.error('There was an error!', error);
                 });
         }
     };
@@ -109,10 +94,6 @@ export default function SearchPage() {
                     py: 3,
                     px: 2,
                     mt: 'auto',
-                    backgroundColor: (theme) =>
-                        theme.palette.mode === 'light'
-                            ? theme.palette.grey[200]
-                            : theme.palette.grey[800],
                 }}
             >
                 <Container maxWidth="sm">
