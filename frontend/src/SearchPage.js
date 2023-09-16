@@ -6,7 +6,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import * as React from "react";
 import Link from "@mui/material/Link";
 import {AppBar, Button, TextField, Toolbar} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function Footer() {
     return (
@@ -41,13 +41,12 @@ function SearchBar() {
             e.preventDefault();
             const value = e.target.value;
             setSearch(value);
-            console.log(search)
+
 
             // GET Request that puts data into responseData;
-            fetch('https://httpbin.org/anything', {
-                headers: {
-                    'Test': value
-                },
+            fetch('https://httpbin.org/anything?' + new URLSearchParams({
+                query: value
+            }), {
                 options: 'GET'
             })
                 .then(response => {return response.json()})
