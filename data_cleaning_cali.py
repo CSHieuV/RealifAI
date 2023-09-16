@@ -20,7 +20,13 @@ df = pd.read_csv('California.csv')
 
 # df = df.drop(columns=['housing_median_age'])
 
-df['total_bedrooms'] = np.maximum(df['total_bedrooms'] // 250, 1)
+# df['total_bedrooms'] = np.maximum(df['total_bedrooms'] // 250, 1)
+
+# df['Bedrooms'] = df['total_bedrooms']
+
+
+df = df.drop(columns=['total_bedrooms'])
+
 
 
 file_path = "California.csv"
