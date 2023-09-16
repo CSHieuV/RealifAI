@@ -43,7 +43,7 @@ export default function App() {
           <BrowserRouter>
               <Routes>
                   <Route path="/" element={<SearchPage />}/>
-                  {/*<Route path="maps_overall" element={< OverallMapsPage/>}/>*/}
+                  <Route path="maps_overall" element={< OverallMapsPage/>}/>
                   <Route path="street_view" element={< StreetViewPage/>}/>
               </Routes>
           </BrowserRouter>
