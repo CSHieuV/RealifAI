@@ -32,10 +32,12 @@ def find_reqs(query: str) -> HousingReqs:
         housing_reqs.water = reqs_json.get("water", None)
         housing_reqs.square_ft = reqs_json.get("square_ft", None)
         housing_reqs.newer_housing = reqs_json.get("newer_housing", None)
+        housing_reqs.location = reqs_json.get("location", None)
 
         return housing_reqs
 
 
 if __name__ == "__main__":
     print(find_reqs("I want a house for me and my 3 kids, I can pay up to $100,000. I want to live in the plains, "
-                    "far from the ocean. I want a house with 5000 square ft. I want a new house. I want a blue house."))
+                    "far from the ocean. I want a house with 5000 square ft. I want a new house. I want a blue house. "
+                    "I want to live in San Diego"))
