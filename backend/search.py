@@ -1,5 +1,11 @@
+from typing import List
+
 import pandas as pd
 import numpy as np
+
+from backend.HousingReqs import HousingReqs
+from backend.HousingResult import HousingResult
+
 
 def mixed_distance(row, requisites):
     """
@@ -36,8 +42,14 @@ cal_data = pd.read_csv('California.csv', sep=',', header=None)
 print(cal_data)
 
 
+def n_closest_houses(housing_reqs: HousingReqs, n: int=10) -> List[HousingResult]:
+    """
 
-
+    :param housing_reqs: Requirements for house
+    :param n: Number of houses
+    :return: List
+    """
+    pass
 
 # def closest_houses(housing_data, requisites, n=10):
 #     """
