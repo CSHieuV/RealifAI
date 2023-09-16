@@ -32,7 +32,8 @@ def return_json():
     housing_reqs: HousingReqs = find_reqs(housing_query)
     houses_result = n_closest_houses(housing_reqs)
     # houses_result = get_mock_houses_list()
-    return jsonify(houses_result)
+    payload = jsonify(houses_result)
+    return payload
 
 
 if __name__ == '__main__':
