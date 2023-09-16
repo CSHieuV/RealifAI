@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useMemo } from "react";
 import "./OverallMapsPage.css";
 import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
+import getGoogleMapsAPIKey from './ApiKeys'
 
 // export default function OverallMapsPage() {
 //   const { isLoaded } = useLoadScript({
@@ -24,7 +25,7 @@ import { GoogleMap, useLoadScript, MarkerF } from "@react-google-maps/api";
 
 const App = () => {
     const { isLoaded } = useLoadScript({
-      googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+      googleMapsApiKey: getGoogleMapsAPIKey(),
     });
     const center = useMemo(() => ({ lat: 18.52043, lng: 73.856743 }), []);
   
