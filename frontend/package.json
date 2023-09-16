@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@googlemaps/react-wrapper": "github:googlemaps/react-wrapper",
     "@mui/icons-material": "^5.14.9",
     "@mui/material": "^5.14.9",
     "@react-google-maps/api": "^2.19.2",
@@ -16,6 +17,7 @@
     "react-google-streetview": "^0.0.9",
     "react-router-dom": "^6.16.0",
     "react-scripts": "5.0.1",
+    "react-streetview": "^1.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
