@@ -34,6 +34,8 @@ def find_reqs(query: str) -> HousingReqs:
         housing_reqs.newer_housing = reqs_json.get("newer_housing", None)
         housing_reqs.location = reqs_json.get("location", None)
 
+        # print(f"Reqs found for query: {query}\nGPT Response:\n{reqs_json}\n\nReqs:\n{housing_reqs}\n")
+
         return housing_reqs
 
 
