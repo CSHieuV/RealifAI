@@ -5,8 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import {alpha, AppBar, Button, InputAdornment, InputBase, styled, TextField, Toolbar} from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import {alpha, AppBar, Button, InputBase, TextField, Toolbar} from "@mui/material";
 import {useState} from 'react';
 
 function Footer() {
@@ -36,10 +35,37 @@ const defaultTheme = createTheme();
 function SearchBar() {
     const [search, setSearch] = useState("");
 
-    const handleChange = (e) => {
-        e.preventDefault();
-        setSearch(e.target.value);
+    const [data, setData] = useState(null);
 
+    const apiURL = "httpbin.org/get"
+
+    const handleEnter = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            setSearch(e.target.value);
+            console.log(search)
+
+            // GET Request that puts data into responseData
+            fetch(apiURL, {
+                method: 'GET',
+                headers: {
+                    "AMONG": "us,"
+                }
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    console.log(response)
+                    return response.json();
+                })
+                .then((responseData) => {
+                    setData(responseData);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
     };
 
     return (
@@ -48,9 +74,7 @@ function SearchBar() {
                 label="Search..."
                 id="filled-start-adornment"
                 sx={{ m: 1, width: '50ch' }}
-                InputProps={{
-
-                }}
+                onKeyDown={(e) => handleEnter(e)}
                 variant="filled"
             />
 
