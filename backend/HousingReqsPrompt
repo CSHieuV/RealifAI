@@ -5,7 +5,7 @@ query: "I want a house for me and my 3 children, I can only afford to pay $500,0
 result:
 {
 "price_max": 500,000,
-"num_people": 4,
+"people_num": 4,
 "location": "Kansas"
 }
 explanation: The user says they can only afford to spend 500,000, so that is the max price. The user says they want to live with their 3 children, so that is 3 houses for them, plus 1 for the user themselves. They also say they dont care if they are near the ocean, so water is not included in the result.
