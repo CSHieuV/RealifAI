@@ -6,8 +6,11 @@ import * as React from "react";
 import Link from "@mui/material/Link";
 import {AppBar, Button, IconButton, InputAdornment, TextField, Toolbar} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import { CircularProgress, Tooltip } from "@mui/material";
+import HomeIcon from '@mui/icons-material/Home';
 
 export let markers = null;
+let isLoading = false; // Dummy variable for loading state
 
 function Footer() {
     return (
@@ -24,7 +27,12 @@ function ButtonAppBar() {
     return (
         <AppBar position="static">
             <Toolbar>
-                <Button color="inherit">NLPRealEstate</Button>
+                <IconButton edge="start" color="inherit" aria-label="home">
+                    <HomeIcon />
+                </IconButton>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    NLPRealEstate
+                </Typography>
             </Toolbar>
         </AppBar>
     );
@@ -48,10 +56,12 @@ function fetchFromBackend(value) {
         });
 }
 function SearchBar() {
+    const [loading, setLoading] = React.useState(false); // State to handle loading
 
     const handleEnter = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
+            setLoading(true);
             const value = e.target.value;
             fetchFromBackend(value)
         }
@@ -60,32 +70,36 @@ function SearchBar() {
     return (
         <div>
             <TextField
-                label="Search..."
+                label="Search properties"
+                placeholder="Enter city, neighborhood, or keyword..."
                 id="filled-start-adornment"
                 sx={{ m: 1, width: '50ch' }}
                 onKeyDown={(e) => handleEnter(e)}
                 helperText="Press enter to submit"
                 variant="filled"
                 InputProps={{
-                endAdornment: (
-                    <InputAdornment position='end'>
-                        <IconButton type="button"
-                                    sx={{ p: '10px' }}
-                                    aria-label="search"
-                                    onClick={(e) => fetchFromBackend(e.target.value)}>
-                            <SearchIcon />
-                        </IconButton>
-                    </InputAdornment>
-                ),
+                    endAdornment: (
+                        <InputAdornment position='end'>
+                            <Tooltip title="Search">
+                                <span>
+                                    <IconButton type="button"
+                                                sx={{ p: '10px' }}
+                                                aria-label="search"
+                                                disabled={isLoading}
+                                                onClick={(e) => {
+                                                    setLoading(true);
+                                                    fetchFromBackend(e.target.value);
+                                                }}>
+                                        {isLoading ? <CircularProgress size={24} /> : <SearchIcon />}
+                                    </IconButton>
+                                </span>
+                            </Tooltip>
+                        </InputAdornment>
+                    ),
                 }}
             />
-
-
         </div>
-        // https://stackoverflow.com/questions/51694149/add-element-inside-textfield-component-material-ui
-
-    )
-
+    );
 }
 
 export default function SearchPage() {
@@ -95,20 +109,21 @@ export default function SearchPage() {
                 display: 'flex',
                 flexDirection: 'column',
                 minHeight: '100vh',
+                bg: '#f5f5f5', // Light gray background for a subtle differentiation
             }}
         >
-            <ButtonAppBar/>
+            <ButtonAppBar />
             <CssBaseline />
-            <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="md">
+            <Container component="main" sx={{ mt: 8, mb: 2, p: 4, boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', bg: 'white' }} maxWidth="md">
                 <Typography variant="h2" component="h1" gutterBottom>
                     NLP Real Estate Searcher
                 </Typography>
-                <SearchBar/>
-                <br/>
+                <SearchBar />
+                <br />
                 <Typography variant="h5" component="h2" gutterBottom>
-                    {'Text that talks about our program'}
+                    Discover the best properties with our AI-powered search
                 </Typography>
-                <Typography variant="body1">Type something into the search bar to get started!</Typography>
+                <Typography variant="body1">Type a location, feature, or any keyword into the search bar to get started!</Typography>
             </Container>
             <Box
                 component="footer"
@@ -116,6 +131,8 @@ export default function SearchPage() {
                     py: 3,
                     px: 2,
                     mt: 'auto',
+                    bg: 'primary.main', // Styling footer with primary color
+                    color: 'white'
                 }}
             >
                 <Container maxWidth="sm">
