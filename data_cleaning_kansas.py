@@ -19,6 +19,7 @@ df = pd.read_csv('KansasCity.csv')
 
 # df = df.rename(columns={'lat': 'latitude', 'long': 'longitude'})
 
+# df = df.drop(columns=['floors'])
 
 # Save the DataFrame to a CSV file
 file_path = "KansasCity.csv"

@@ -1,3 +1,1 @@
-df = df.drop(columns=['sqft_living15'])
-
-# df = df.drop(columns=['sqft_living15'])
+df['ocean_proximity'] = np.where(df['ocean_proximity'] == "NEAR BAY", 1, 0)

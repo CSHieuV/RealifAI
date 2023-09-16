@@ -9,8 +9,8 @@ class HousingReqs:
     people_num: Optional[int]
     water: Optional[bool]
     square_ft: Optional[int]
-    
-    # newer_housing: Optional[bool]
+    newer_housing: Optional[int]
+
     # Optional:
     # good_schools: bool
     # city_name: Optional[str]
