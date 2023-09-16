@@ -10,6 +10,7 @@ class HousingReqs:
     water: Optional[bool]
     square_ft: Optional[int]
     newer_housing: Optional[bool]
+    location: Optional[str]
 
     # Optional:
     # good_schools: bool
