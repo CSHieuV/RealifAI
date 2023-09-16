@@ -39,28 +39,21 @@ function SearchBar() {
     const handleEnter = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
-            setSearch(e.target.value);
+            const value = e.target.value;
+            setSearch(value);
             console.log(search)
 
-            // GET Request that puts data into responseData
-            fetch(apiURL, {
-                method: 'GET',
+            // GET Request that puts data into responseData;
+            fetch('https://httpbin.org/anything', {
                 headers: {
-                    "AMONG": "us,"
-                }
+                    'Test': value
+                },
+                options: 'GET'
             })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    console.log(response)
-                    return response.json();
-                })
-                .then((responseData) => {
-                    setData(responseData);
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
+                .then(response => {return response.json()})
+                .then(responseData => {console.log(responseData)})
+                .catch(error => {
+                    console.error('There was an error!', error);
                 });
         }
     };
