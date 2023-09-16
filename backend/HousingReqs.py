@@ -7,7 +7,7 @@ class HousingReqs:
     price_min: Optional[int]
     price_max: Optional[int]
     people_num: Optional[int]
-    ocean: Optional[bool]
+    water: Optional[bool]
     square_ft: Optional[int]
     
     # newer_housing: Optional[bool]
