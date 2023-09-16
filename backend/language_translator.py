@@ -1,3 +1,5 @@
+import json
+
 import openai
 from backend.HousingReqs import HousingReqs
 
@@ -21,8 +23,18 @@ def find_reqs(query: str) -> HousingReqs:
         prompt = f.read().replace("{Prompt-Text}", query)
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", temperature=0,
                                                   messages=[{"role": "user", "content": prompt}])
-        return completion.choices[0].message.content
+        reqs_json = json.loads(completion.choices[0].message.content)
+
+        housing_reqs = HousingReqs()
+        housing_reqs.price_min = reqs_json.get("price_min", None)
+        housing_reqs.price_max = reqs_json.get("price_max", None)
+        housing_reqs.people_num = reqs_json.get("people_num", None)
+        housing_reqs.ocean = reqs_json.get("ocean", None)
+        housing_reqs.newer_housing = reqs_json.get("newer_housing", None)
+
+        return housing_reqs
 
 
 if __name__ == "__main__":
-    print(find_reqs("I want a house for me and my 3 kids, I can pay up to $100,000. I want to live in the plains, far from the ocean. I dont care if my house is new or old"))
+    print(find_reqs("I want a house for me and my 3 kids, I can pay up to $100,000. I want to live in the plains, "
+                    "far from the ocean. I dont care if my house is new or old"))
