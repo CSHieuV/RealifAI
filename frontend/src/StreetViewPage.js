@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactStreetview from 'react-streetview';
 export default function StreetViewPage() {
-    const googleMapsApiKey = "AIzaSyAOubr7nlp6Ra1qH49KpjGq0-l3QuwRmu4";
+    const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
     // see https://developers.google.com/maps/documentation/javascript/3.exp/reference#StreetViewPanoramaOptions
     const streetViewPanoramaOptions = {
