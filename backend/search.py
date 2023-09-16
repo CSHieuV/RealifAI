@@ -7,7 +7,7 @@ from HousingReqs import HousingReqs
 from HousingResult import HousingResult
 
 
-def n_closest_houses_updated_simple(housing_reqs: HousingReqs, n: int=10) -> List[HousingResult]:
+def n_closest_houses(housing_reqs: HousingReqs, n: int=10) -> List[HousingResult]:
     # Load the datasets
     df_kansas = pd.read_csv('KansasCity.csv')
     df_california = pd.read_csv('California.csv')
