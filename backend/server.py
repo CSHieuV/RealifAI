@@ -30,8 +30,8 @@ def return_json():
     all_params = request.args.to_dict()
     housing_query = all_params["query_text"]
     housing_reqs: HousingReqs = find_reqs(housing_query)
-    # houses_result = n_closest_houses(housing_reqs)
-    houses_result = get_mock_houses_list()
+    houses_result = n_closest_houses(housing_reqs)
+    # houses_result = get_mock_houses_list()
     return jsonify(houses_result)
 
 
