@@ -22,4 +22,9 @@ README.md
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+yarn.lock
+
+package-lock.json
+
 /src/ApiKeys.js

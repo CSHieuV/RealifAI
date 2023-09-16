@@ -28,7 +28,7 @@ function ButtonAppBar() {
 }
 
 function SearchBar() {
-    const apiURL = "https://httpbin.org/anything?"
+    const apiURL = "http://localhost:5000/housing_query?"
 
     const handleEnter = (e) => {
         if (e.keyCode === 13) {
@@ -38,9 +38,9 @@ function SearchBar() {
 
             // GET Request that puts data into responseData;
             fetch(apiURL + new URLSearchParams({
-                query: value
+                query_text: value,
             }), {
-                options: 'GET'
+                options: 'GET',
             })
                 .then(response => {return response.json()})
                 .then(responseData => {console.log(responseData)})

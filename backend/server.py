@@ -1,6 +1,7 @@
 from typing import List
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 from backend.HousingReqs import HousingReqs
 from backend.HousingResult import HousingResult
@@ -8,6 +9,7 @@ from backend.language_translator import find_reqs
 from backend.search import n_closest_houses
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/')
@@ -32,7 +34,8 @@ def return_json():
     housing_reqs: HousingReqs = find_reqs(housing_query)
     houses_result = n_closest_houses(housing_reqs)
     # houses_result = get_mock_houses_list()
-    return jsonify(houses_result)
+    payload = jsonify(houses_result)
+    return payload
 
 
 if __name__ == '__main__':
