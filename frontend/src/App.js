@@ -5,8 +5,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import {alpha, AppBar, Button, InputBase, styled, Toolbar} from "@mui/material";
+import {alpha, AppBar, Button, InputAdornment, InputBase, styled, TextField, Toolbar} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import {useState} from 'react';
 
 function Footer() {
   return (
@@ -20,7 +21,6 @@ function Footer() {
   );
 }
 function ButtonAppBar() {
-
     return (
             <AppBar position="static">
                 <Toolbar>
@@ -34,61 +34,32 @@ function ButtonAppBar() {
 const defaultTheme = createTheme();
 
 function SearchBar() {
-    const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
-        border: 1,
-        backgroundColor: alpha(theme.palette.common.black, 0.15),
-        '&:hover': {
-            backgroundColor: alpha(theme.palette.common.black, 0.2),
-        },
-        borderColor: alpha(theme.palette.common.black, 0.5),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
-    }));
+    const [search, setSearch] = useState("");
 
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }));
+    const handleChange = (e) => {
+        e.preventDefault();
+        setSearch(e.target.value);
 
-    const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: 'inherit',
-        '& .MuiInputBase-input': {
-            padding: theme.spacing(1, 1, 1, 0),
-            // vertical padding + font size from searchIcon
-            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-            transition: theme.transitions.create('width'),
-            width: '100%',
-            [theme.breakpoints.up('sm')]: {
-                width: '12ch',
-                '&:focus': {
-                    width: '20ch',
-                },
-            },
-        },
-    }));
+    };
 
     return (
-        <Search>
-            <SearchIconWrapper>
-                <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
+        <div>
+            <TextField
+                label="Search..."
+                id="filled-start-adornment"
+                sx={{ m: 1, width: '50ch' }}
+                InputProps={{
+
+                }}
+                variant="filled"
             />
-        </Search>
+
+        </div>
+
     )
+
 }
+
 export default function App() {
   return (
       <ThemeProvider theme={defaultTheme}>
@@ -101,7 +72,7 @@ export default function App() {
         >
             <ButtonAppBar/>
           <CssBaseline />
-          <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
+          <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="md">
             <Typography variant="h2" component="h1" gutterBottom>
               NLP Real Estate Searcher
             </Typography>
