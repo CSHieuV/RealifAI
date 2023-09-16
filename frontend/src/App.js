@@ -3,6 +3,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SearchPage from './SearchPage'
 import OverallMapsPage from './OverallMapsPage'
+import StreetViewPage from "./StreetViewPage";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -13,7 +14,8 @@ export default function App() {
           <BrowserRouter>
               <Routes>
                   <Route path="/" element={<SearchPage />}/>
-                  <Route path="maps_overall" element={< OverallMapsPage/>}/>
+                  {/*<Route path="maps_overall" element={< OverallMapsPage/>}/>*/}
+                  <Route path="street_view" element={< StreetViewPage/>}/>
               </Routes>
           </BrowserRouter>
       </ThemeProvider>
