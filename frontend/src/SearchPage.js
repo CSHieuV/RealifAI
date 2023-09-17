@@ -80,7 +80,7 @@ function SearchBar() {
             <TextField
                 value={textValue}
                 onChange={handleChange}
-                label="Search (Ex: I want a house far away from the ocean!)"
+                label="Search (Ex: I want a house close to the ocean!)"
                 placeholder="Your ideals lie here!"
                 id="filled-start-adornment"
                 sx={{
