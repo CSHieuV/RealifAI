@@ -68,7 +68,7 @@ function SearchBar() {
     return (
         <div>
             <TextField
-                label="Search properties"
+                label="Search (Ex: I want a house far away from the ocean!)"
                 placeholder="Your ideals lie here!"
                 id="filled-start-adornment"
                 sx={{ m: 1, width: '50ch' }}
@@ -103,44 +103,59 @@ function SearchBar() {
 export default function SearchPage() {
     return (
         <ThemeProvider theme={theme}>
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '100vh',
-                bg: '#f5f5f5', // Light gray background for a subtle differentiation
-            }}
-        >
-            <ButtonAppBar />
-            <CssBaseline />
-            <Container component="main" sx={{ mt: 8, mb: 2, p: 4, boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', bg: 'white' }} maxWidth="md">
-                <Typography variant="h2" component="h1" gutterBottom>
-                    NLP Real Estate Searcher
-                </Typography>
-                <SearchBar />
-                <br />
-                <Typography variant="h5" component="h2" gutterBottom>
-                    Discover the best properties with our AI-powered search
-                </Typography>
-                <Typography variant="body1">Type a location, feature, or any keyword into the search bar to get started!</Typography>
-            </Container>
             <Box
-                component="footer"
                 sx={{
-                    py: 3,
-                    px: 2,
-                    mt: 'auto',
-                    bg: 'primary.main', // Styling footer with primary color
-                    color: 'white'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minHeight: '100vh',
+                    bg: '#f5f5f5', // Light gray background for a subtle differentiation
                 }}
             >
-                <Container maxWidth="sm">
-                    <Typography variant="body1">
-                        For VTHacks 11
+                <ButtonAppBar />
+                <CssBaseline />
+                <Container
+                    component="main"
+                    sx={{
+                        mt: 8,
+                        mb: 2,
+                        p: 4,
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        bg: 'white',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center'  // This centers the child elements horizontally
+                    }}
+                    maxWidth="md"
+                >
+                    <Typography variant="h2" component="h1" gutterBottom>
+                        NLP Real Estate Searcher
+                    </Typography>
+                    <SearchBar />
+                    <br />
+                    <Typography variant="h5" component="h2" gutterBottom>
+                        Discover the best properties with our AI-powered search
+                    </Typography>
+                    <Typography variant="h5" component={ "h2"}>
+                        Describe your ideal home.
                     </Typography>
                 </Container>
+                <Box
+                    component="footer"
+                    sx={{
+                        py: 3,
+                        px: 2,
+                        mt: 'auto',
+                        bg: 'primary.main', // Styling footer with primary color
+                        color: 'white'
+                    }}
+                >
+                    <Container maxWidth="sm">
+                        <Typography variant="body1">
+                            For VTHacks 11
+                        </Typography>
+                    </Container>
+                </Box>
             </Box>
-        </Box>
         </ThemeProvider>
     )
 }
