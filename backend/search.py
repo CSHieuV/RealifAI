@@ -51,7 +51,9 @@ def n_closest_houses(housing_reqs: HousingReqs, n: int = 10) -> List[HousingResu
         HousingResult(
             longitude=row['longitude'],
             latitude=row['latitude'],
-            other_data={col: str(row[col]) for col in filtered_df.columns if col not in ['longitude', 'latitude']}
+            other_data={
+                col: str(row[col]) for col in filtered_df.columns if col not in ['longitude', 'latitude'] and not pd.isna(row[col])
+            }
         ) for _, row in filtered_df.iterrows()
     ]
 
