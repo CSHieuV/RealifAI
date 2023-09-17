@@ -21,7 +21,7 @@ const theme = createTheme({
     },
 });
 
-function ButtonAppBar() {
+export function ButtonAppBar() {
     return (
         <AppBar position="static">
             <Toolbar>
