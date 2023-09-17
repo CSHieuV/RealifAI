@@ -28,6 +28,7 @@ def get_mock_houses_list() -> List[HousingResult]:
 
 
 
+
 @app.route('/housing_query', methods=['GET'])
 def return_json():
     all_params = request.args.to_dict()
