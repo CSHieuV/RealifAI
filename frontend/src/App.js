@@ -7,10 +7,6 @@ import StreetViewPage from "./StreetViewPage";
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-
 function SearchBar() {
   const [search, setSearch] = useState("");
 
@@ -40,14 +36,12 @@ function SearchBar() {
 
 export default function App() {
   return (
-      <ThemeProvider theme={defaultTheme}>
-          <BrowserRouter>
-              <Routes>
-                  <Route path="/" element={<SearchPage />}/>
-                  <Route path="maps_overall" element={< OverallMapsPage/>}/>
-                  <Route path="street_view" element={< StreetViewPage/>}/>
-              </Routes>
-          </BrowserRouter>
-      </ThemeProvider>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<SearchPage />}/>
+              <Route path="maps_overall" element={< OverallMapsPage/>}/>
+              <Route path="street_view" element={< StreetViewPage/>}/>
+          </Routes>
+      </BrowserRouter>
   );
 }
