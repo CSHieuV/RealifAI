@@ -83,7 +83,8 @@ function SearchBar(props) {
                         <InputAdornment position='end'>
                             <Tooltip title="Search">
                                 <span>
-                                    <IconButton type="button"
+                                    <IconButton href="maps_overall"
+                                    type="button"
                                                 sx={{ p: '10px' }}
                                                 aria-label="search"
                                                 disabled={isLoading}
