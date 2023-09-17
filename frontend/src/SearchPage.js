@@ -81,7 +81,7 @@ function SearchBar() {
             <TextField
                 value={textValue}
                 onChange={handleChange}
-                label="Search (Ex: I want a house close to the ocean!)"
+                label="Search (Ex: I want a house close to water!)"
                 placeholder="Your ideals lie here!"
                 id="filled-start-adornment"
                 sx={{
@@ -170,7 +170,7 @@ export default function SearchPage() {
                         Discover the best properties with our AI-powered search
                     </Typography>
                     <Typography variant="h5" component={ "h2"}>
-                        Describe your ideal home.
+                        Describe your ideal home
                     </Typography>
                 </Container>
             </Box>

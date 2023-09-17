@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SearchPage from './SearchPage'
 import OverallMapsPage from './OverallMapsPage'
 import StreetViewPage from "./StreetViewPage";
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 
 function SearchBar() {
@@ -35,6 +35,9 @@ function SearchBar() {
 }
 
 export default function App() {
+    useEffect(() => {
+        document.title = 'RealifAI';
+    }, []);
   return (
       <BrowserRouter>
           <Routes>
