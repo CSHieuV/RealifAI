@@ -1,72 +1,111 @@
 import {
-    GoogleMap,
-    InfoWindow,
-    MarkerF,
-    useLoadScript,
-  } from "@react-google-maps/api";
-  import { useState } from "react";
-  import "./OverallMapsPage.css";
-  import getGoogleMapsAPIKey from "./ApiKeys";
-  import { markers } from "./SearchPage.js"
-  
-  const App = () => {
-    const { isLoaded } = useLoadScript({
-      googleMapsApiKey: getGoogleMapsAPIKey(),
-    });
-    const [mapRef, setMapRef] = useState();
-    const [isOpen, setIsOpen] = useState(false);
-    const [infoWindowData, setInfoWindowData] = useState();
+  GoogleMap,
+  InfoWindow,
+  MarkerF,
+  useLoadScript,
+} from "@react-google-maps/api";
+import { useState } from "react";
+import "./OverallMapsPage.css";
+import getGoogleMapsAPIKey from "./ApiKeys";
+import { markers } from "./SearchPage.js"
 
-    const onMapLoad = (map) => {
-      setMapRef(map);
-      const bounds = new window.google.maps.LatLngBounds();
-      markers?.forEach(({ latitude, longitude }) => bounds.extend({ lat:latitude, lng:longitude }));
-      map.fitBounds(bounds);
-    };
-  
-    const handleMarkerClick = (id, latitude, longitude) => {
-      mapRef?.panTo({ lat:latitude, lng:longitude });
+const App = () => {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: getGoogleMapsAPIKey(),
+  });
+  const [mapRef, setMapRef] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+  const [infoWindowData, setInfoWindowData] = useState();
 
-    };
-  
-    return (
-      <div className="App">
-        {!isLoaded ? (
-          <h1>Loading...</h1>
-        ) : (
-          <GoogleMap
-            mapContainerClassName="map-container"
-            onLoad={onMapLoad}
-            onClick={() => setIsOpen(false)}
-          >
-            {markers.map(({ latitude, longitude }, ind) => (
-              <MarkerF
-                key={ind}
-                position={{ lat:latitude, lng:longitude }}
-                onClick={() => {
-                  handleMarkerClick(ind, latitude, longitude);
-                }}
-              >
-                {isOpen && infoWindowData?.id === ind && (
-                  <InfoWindow
-                    onCloseClick={() => {
-                      setIsOpen(false);
-                    }}
-                  >
-                    <div>
-                      <h1>Property at {longitude} {latitude}</h1>
-                      <p>Price: ${markers[ind].other_data.price}</p>
-                      <p>Bedrooms: {markers[ind].other_data.bedrooms} bedrooms</p>
-                      <p>Square Footage: {markers[ind].other_data.sqft_living} feet squared</p>
-                    </div>
-                  </InfoWindow>
-                )}
-              </MarkerF>
-            ))}
-          </GoogleMap>
-        )}
-      </div>
-    );
+  // const markers = [
+  //   {
+  //       "latitude": 47.5112,
+  //       "longitude": -122.257,
+  //       "other_data": {
+  //           "FIREPLACES": "nan",
+  //           "KITCHENS": "nan",
+  //           "ROOMS": "nan",
+  //           "STYLE": "nan",
+  //           "Yr_changed": "nan",
+  //           "bathrooms": "1.0",
+  //           "bedrooms": "3",
+  //           "ocean_proximity": "0",
+  //           "price": "221900.0",
+  //           "sqft_living": "1180",
+  //           "yr_changed": "1955.0"
+  //       }
+  //   },
+  //   {
+  //       "latitude": 47.721,
+  //       "longitude": -122.319,
+  //       "other_data": {
+  //           "FIREPLACES": "nan",
+  //           "KITCHENS": "nan",
+  //           "ROOMS": "nan",
+  //           "STYLE": "nan",
+  //           "Yr_changed": "nan",
+  //           "bathrooms": "2.25",
+  //           "bedrooms": "3",
+  //           "ocean_proximity": "0",
+  //           "price": "538000.0",
+  //           "sqft_living": "2570",
+  //           "yr_changed": "1991.0"
+  //       }
+  //   },
+  // ]
+
+  const onMapLoad = (map) => {
+    setMapRef(map);
+    const bounds = new window.google.maps.LatLngBounds();
+    markers?.forEach(({ latitude, longitude }) => bounds.extend({ lat:latitude, lng:longitude }));
+    map.fitBounds(bounds);
   };
-  
-  export default App;
+
+  const handleMarkerClick = (id, latitude, longitude) => {
+    mapRef?.panTo({ lat:latitude, lng:longitude });
+    setInfoWindowData({ id });
+    setIsOpen(true);
+  };
+
+  return (
+    <div className="App">
+      {!isLoaded ? (
+        <h1>Loading...</h1>
+      ) : (
+        <GoogleMap
+          mapContainerClassName="map-container"
+          onLoad={onMapLoad}
+          onClick={() => setIsOpen(false)}
+        >
+          {markers.map(({ latitude, longitude }, ind) => (
+            <MarkerF
+              key={ind}
+              position={{ lat:latitude, lng:longitude }}
+              defaultClickable={false}
+              onClick={() => {
+                handleMarkerClick(ind, latitude, longitude);
+              }}
+            >
+              {isOpen && infoWindowData?.id === ind && (
+                <InfoWindow
+                  onCloseClick={() => {
+                    setIsOpen(false);
+                  }}
+                >
+                  <div>
+                    <h1>Property at {longitude} {latitude}</h1>
+                    <p>Price: ${markers[ind].other_data.price}</p>
+                    <p>Bedrooms: {markers[ind].other_data.bedrooms} bedrooms</p>
+                    <p>Square Footage: {markers[ind].other_data.sqft_living} feet squared</p>
+                  </div>
+                </InfoWindow>
+              )}
+            </MarkerF>
+          ))}
+        </GoogleMap>
+      )}
+    </div>
+  );
+};
+
+export default App;
