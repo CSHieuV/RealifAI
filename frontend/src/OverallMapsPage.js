@@ -7,20 +7,24 @@ import {
   import { useState } from "react";
   import "./OverallMapsPage.css";
   import getGoogleMapsAPIKey from "./ApiKeys";
-  
-  const App = () => {
+import { useContext } from "react";
+import { MarkersContext } from "./MarkersContext";  // Import the context
+
+
+const App = () => {
     const { isLoaded } = useLoadScript({
       googleMapsApiKey: getGoogleMapsAPIKey(),
     });
     const [mapRef, setMapRef] = useState();
     const [isOpen, setIsOpen] = useState(false);
     const [infoWindowData, setInfoWindowData] = useState();
-    const markers = [
-      { address: "Address1", lat: 1, lng: 3 },
-      { address: "Address2", lat: 2, lng: 2 },
-      { address: "Address3", lat: 3, lng: 1 },
-    ];
-  
+    // const markers = [
+    //   { address: "Address1", lat: 1, lng: 3 },
+    //   { address: "Address2", lat: 2, lng: 2 },
+    //   { address: "Address3", lat: 3, lng: 1 },
+    // ];
+    const { markers } = useContext(MarkersContext);  // Use the context
+
     const onMapLoad = (map) => {
       setMapRef(map);
       const bounds = new window.google.maps.LatLngBounds();

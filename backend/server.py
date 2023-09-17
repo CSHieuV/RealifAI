@@ -30,7 +30,9 @@ def get_mock_houses_list() -> List[HousingResult]:
 @app.route('/housing_query', methods=['GET'])
 def return_json():
     all_params = request.args.to_dict()
-    housing_query = all_params["query_text"]
+    housing_query = all_params.get("query_text", None)
+    if not housing_query:
+        return jsonify({"error": "query_text parameter is missing"}), 400
     housing_reqs: HousingReqs = find_reqs(housing_query)
     houses_result = n_closest_houses(housing_reqs)
     # houses_result = get_mock_houses_list()

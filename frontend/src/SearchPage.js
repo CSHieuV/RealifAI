@@ -10,6 +10,9 @@ import { CircularProgress, Tooltip } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import "@fontsource/quicksand"; // Defaults to weight 400
+import { useContext } from "react";
+import { MarkersContext } from "./MarkersContext";  // Import the context
+
 
 
 export let markers = null;
@@ -47,32 +50,34 @@ function ButtonAppBar() {
     );
 }
 
-function fetchFromBackend(value) {
+function fetchFromBackend(value, setMarkers) {
+    // const { setMarkers } = useContext(MarkersContext);  // Use the context
+
     const apiURL = "http://localhost:5000/housing_query?"
-    // GET Request that puts data into responseData;
     fetch(apiURL + new URLSearchParams({
         query_text: value,
     }), {
-        options: 'GET',
+        option: 'GET',
     })
         .then(response => {return response.json()})
         .then(responseData => {
-            markers = responseData;
-            console.log(markers)
+            setMarkers(responseData);   // Set the markers in the context
+            console.log(responseData);
         })
         .catch(error => {
-            console.error('There was an error!', error);
+            console.error('There was an error!', error.message);
         });
 }
 function SearchBar() {
     const [loading, setLoading] = React.useState(false); // State to handle loading
+    const { setMarkers } = useContext(MarkersContext);  // Use the context inside a component
 
     const handleEnter = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
             setLoading(true);
             const value = e.target.value;
-            fetchFromBackend(value)
+            fetchFromBackend(value, setMarkers)
         }
     };
 
@@ -97,7 +102,7 @@ function SearchBar() {
                                                 disabled={isLoading}
                                                 onClick={(e) => {
                                                     setLoading(true);
-                                                    fetchFromBackend(e.target.value);
+                                                    fetchFromBackend(e.target.value, setMarkers);  // And here
                                                 }}>
                                         {isLoading ? <CircularProgress size={24} /> : <SearchIcon />}
                                     </IconButton>
