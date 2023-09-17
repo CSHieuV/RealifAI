@@ -20,7 +20,7 @@ openai.api_key = ENV["OPENAI_API_KEY"]
 
 
 def find_reqs(query: str) -> HousingReqs:
-    with open("HousingReqsPrompt", "r") as f:
+    with open("HousingReqsPrompt.txt", "r") as f:
         prompt = f.read().replace("{Prompt-Text}", query)
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", temperature=0,
                                                   messages=[{"role": "user", "content": prompt}])
@@ -40,8 +40,14 @@ def find_reqs(query: str) -> HousingReqs:
         return housing_reqs
 
 
-def get_desc(housing_res: HousingResult) -> str:
-    return str(housing_res.other_data)
+def get_desc(housing_query: str, housing_res: HousingResult) -> str:
+    with open("HousingDescriptionPrompt.txt", "r") as f:
+        prompt = f.read().replace("{Original-Request}", housing_query)
+        prompt.replace("{House-Data}", str(housing_res.other_data))
+        completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", temperature=0,
+                                                  messages=[{"role": "user", "content": prompt}])
+        desc = completion.choices[0].message.content
+        return desc
 
 
 if __name__ == "__main__":

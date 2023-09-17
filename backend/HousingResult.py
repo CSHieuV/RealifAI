@@ -7,7 +7,6 @@ class HousingResult:
     longitude: float
     latitude: float
     other_data: Dict[str, str]
-    description: str
 
     def __init__(self, longitude, latitude, other_data):
         self.longitude = longitude

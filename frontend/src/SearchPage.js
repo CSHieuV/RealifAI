@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import {useState} from "react";
 
 export let markers = null;
+export let query_text = null;
 let isLoading = false; // Dummy variable for loading state
 
 const theme = createTheme({
@@ -64,6 +65,7 @@ function SearchBar() {
             fetchFromBackend(value)
                 .then(() => {
                     if (value) {
+                        query_text = value;
                         navigate('/maps_overall');
                     }
                 });
@@ -114,6 +116,7 @@ function SearchBar() {
                                                 disabled={isLoading}
                                                 onClick={(e) => {
                                                     setLoading(true);
+                                                    console.log("btn")
                                                     fetchFromBackend(textValue).then(() => {
                                                         if (textValue) {
                                                             navigate('/maps_overall');

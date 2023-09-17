@@ -8,7 +8,7 @@ from HousingResult import HousingResult
 from backend.language_translator import get_desc
 
 
-def n_closest_houses(housing_reqs: HousingReqs, n: int = 10) -> List[HousingResult]:
+def n_closest_houses(housing_query: str, housing_reqs: HousingReqs, n: int = 10) -> List[HousingResult]:
     # Load the datasets
     df_kansas = pd.read_csv('KansasCity.csv')
     df_dc = pd.read_csv('DC.csv')
@@ -56,9 +56,9 @@ def n_closest_houses(housing_reqs: HousingReqs, n: int = 10) -> List[HousingResu
             }
         ) for _, row in filtered_df.iterrows()
     ]
-
+    # return results
     for result in results:
-        result.description = get_desc(result)
+        result.description = "todo" # get_desc(housing_query, result)
 
     return results
 
