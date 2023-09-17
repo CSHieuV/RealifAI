@@ -9,8 +9,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { CircularProgress, Tooltip } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import "@fontsource/quicksand"; // Defaults to weight 400
-
+import "@fontsource/quicksand";
+import { useNavigate } from 'react-router-dom';
 
 export let markers = null;
 let isLoading = false; // Dummy variable for loading state
@@ -38,8 +38,7 @@ function ButtonAppBar() {
 
 function fetchFromBackend(value) {
     const apiURL = "http://localhost:5000/housing_query?"
-    // GET Request that puts data into responseData;
-    fetch(apiURL + new URLSearchParams({
+    return fetch(apiURL + new URLSearchParams({
         query_text: value,
     }), {
         options: 'GET',
@@ -54,7 +53,8 @@ function fetchFromBackend(value) {
         });
 }
 function SearchBar() {
-    const [loading, setLoading] = React.useState(false); // State to handle loading
+    const navigate = useNavigate(); // This is the navigate function from react-router
+    const [loading, setLoading] = React.useState(false);
 
     const handleEnter = (e) => {
         if (e.keyCode === 13) {
@@ -62,6 +62,11 @@ function SearchBar() {
             setLoading(true);
             const value = e.target.value;
             fetchFromBackend(value)
+                .then(() => {
+                    if (value) {
+                        navigate('/maps_overall');
+                    }
+                });
         }
     };
 
