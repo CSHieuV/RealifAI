@@ -11,12 +11,12 @@ df = pd.read_csv('backend/DC.csv')
 
 # df = df.rename(columns={'PRICE': 'price', 'YR_RMDL': 'Yr_changed'})
 
-df['ocean_proximity'] = 1
+df['ocean_proximity'] = 0
 
 
 # Save the DataFrame to a CSV file
 
-file_path = "DC.csv"
+file_path = "backend/DC.csv"
 df.to_csv(file_path, index=False)
 
 print(f"Updated data saved to: {file_path}")
