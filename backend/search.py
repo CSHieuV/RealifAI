@@ -5,6 +5,7 @@ import numpy as np
 
 from HousingReqs import HousingReqs
 from HousingResult import HousingResult
+from backend.language_translator import get_desc
 
 
 def n_closest_houses(housing_reqs: HousingReqs, n: int = 10) -> List[HousingResult]:
@@ -53,6 +54,9 @@ def n_closest_houses(housing_reqs: HousingReqs, n: int = 10) -> List[HousingResu
             other_data={col: str(row[col]) for col in filtered_df.columns if col not in ['longitude', 'latitude']}
         ) for _, row in filtered_df.iterrows()
     ]
+
+    for result in results:
+        result.description = get_desc(result)
 
     return results
 

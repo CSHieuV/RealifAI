@@ -2,6 +2,7 @@ import json
 
 import openai
 from backend.HousingReqs import HousingReqs
+from backend.HousingResult import HousingResult
 
 
 def read_env():
@@ -37,6 +38,10 @@ def find_reqs(query: str) -> HousingReqs:
         # print(f"Reqs found for query: {query}\nGPT Response:\n{reqs_json}\n\nReqs:\n{housing_reqs}\n")
 
         return housing_reqs
+
+
+def get_desc(housing_res: HousingResult) -> str:
+    return str(housing_res.other_data)
 
 
 if __name__ == "__main__":
