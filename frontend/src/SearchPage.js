@@ -3,15 +3,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import Link from "@mui/material/Link";
-import {AppBar, Button, IconButton, InputAdornment, TextField, Toolbar} from "@mui/material";
+import {AppBar, IconButton, InputAdornment, TextField, Toolbar} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { CircularProgress, Tooltip } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import "@fontsource/quicksand";
 import { useNavigate } from 'react-router-dom';
-import {useRef, useState} from "react";
+import {useState} from "react";
 
 export let markers = null;
 let isLoading = false; // Dummy variable for loading state
@@ -38,7 +37,6 @@ function ButtonAppBar() {
 }
 
 function fetchFromBackend(value) {
-    console.log("called fetch with params " + value);
     const apiURL = "http://localhost:5000/housing_query?"
     return fetch(apiURL + new URLSearchParams({
         query_text: value,
@@ -48,7 +46,6 @@ function fetchFromBackend(value) {
         .then(response => {return response.json()})
         .then(responseData => {
             markers = responseData;
-            console.log(markers)
         })
         .catch(error => {
             console.error('There was an error!', error);
@@ -101,8 +98,6 @@ function SearchBar() {
                                                 disabled={isLoading}
                                                 onClick={(e) => {
                                                     setLoading(true);
-                                                    console.log(textValue);
-                                                    // console.log(inputRef.current.value);
                                                     fetchFromBackend(textValue).then(() => {
                                                         if (textValue) {
                                                             navigate('/maps_overall');
