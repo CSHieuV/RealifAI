@@ -3,17 +3,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import Link from "@mui/material/Link";
-import {AppBar, Button, IconButton, InputAdornment, TextField, Toolbar} from "@mui/material";
+import {AppBar, IconButton, InputAdornment, TextField, Toolbar} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { CircularProgress, Tooltip } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import "@fontsource/quicksand"; // Defaults to weight 400
-import { useContext } from "react";
-import { MarkersContext } from "./MarkersContext";  // Import the context
-
-
+import "@fontsource/quicksand";
+import { useNavigate } from 'react-router-dom';
+import {useState} from "react";
 
 export let markers = null;
 let isLoading = false; // Dummy variable for loading state
@@ -24,17 +21,6 @@ const theme = createTheme({
     },
 });
 
-function Footer() {
-    return (
-        <Typography variant="body2" color="text.secondary">
-            {'Created using an '}
-            <Link color="inherit" href="https://mui.com/material-ui/getting-started/templates/">
-                MUI Template
-            </Link>
-            {'.'}
-        </Typography>
-    );
-}
 function ButtonAppBar() {
     return (
         <AppBar position="static">
@@ -50,41 +36,50 @@ function ButtonAppBar() {
     );
 }
 
-function fetchFromBackend(value, setMarkers) {
-    // const { setMarkers } = useContext(MarkersContext);  // Use the context
-
+function fetchFromBackend(value) {
     const apiURL = "http://localhost:5000/housing_query?"
-    fetch(apiURL + new URLSearchParams({
+    return fetch(apiURL + new URLSearchParams({
         query_text: value,
     }), {
-        option: 'GET',
+        options: 'GET',
     })
         .then(response => {return response.json()})
         .then(responseData => {
-            setMarkers(responseData);   // Set the markers in the context
-            console.log(responseData);
+            markers = responseData;
         })
         .catch(error => {
-            console.error('There was an error!', error.message);
+            console.error('There was an error!', error);
         });
 }
 function SearchBar() {
-    const [loading, setLoading] = React.useState(false); // State to handle loading
-    const { setMarkers } = useContext(MarkersContext);  // Use the context inside a component
+    const navigate = useNavigate(); // This is the navigate function from react-router
+    const [loading, setLoading] = React.useState(false);
 
     const handleEnter = (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
             setLoading(true);
             const value = e.target.value;
-            fetchFromBackend(value, setMarkers)
+            fetchFromBackend(value)
+                .then(() => {
+                    if (value) {
+                        navigate('/maps_overall');
+                    }
+                });
         }
     };
+
+    const [textValue, setTextValue] = useState('');
+    const handleChange = (event) => {
+        setTextValue(event.target.value);
+    }
 
     return (
         <div>
             <TextField
-                label="Search properties"
+                value={textValue}
+                onChange={handleChange}
+                label="Search (Ex: I want a house far away from the ocean!)"
                 placeholder="Your ideals lie here!"
                 id="filled-start-adornment"
                 sx={{ m: 1, width: '50ch' }}
@@ -96,13 +91,18 @@ function SearchBar() {
                         <InputAdornment position='end'>
                             <Tooltip title="Search">
                                 <span>
-                                    <IconButton type="button"
+                                    <IconButton
+                                    type="button"
                                                 sx={{ p: '10px' }}
                                                 aria-label="search"
                                                 disabled={isLoading}
                                                 onClick={(e) => {
                                                     setLoading(true);
-                                                    fetchFromBackend(e.target.value, setMarkers);  // And here
+                                                    fetchFromBackend(textValue).then(() => {
+                                                        if (textValue) {
+                                                            navigate('/maps_overall');
+                                                        }
+                                                    });
                                                 }}>
                                         {isLoading ? <CircularProgress size={24} /> : <SearchIcon />}
                                     </IconButton>
@@ -119,45 +119,43 @@ function SearchBar() {
 export default function SearchPage() {
     return (
         <ThemeProvider theme={theme}>
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: '100vh',
-                bg: '#f5f5f5', // Light gray background for a subtle differentiation
-            }}
-        >
-            <ButtonAppBar />
-            <CssBaseline />
-            <Container component="main" sx={{ mt: 8, mb: 2, p: 4, boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', bg: 'white' }} maxWidth="md">
-                <Typography variant="h2" component="h1" gutterBottom>
-                    NLP Real Estate Searcher
-                </Typography>
-                <SearchBar />
-                <br />
-                <Typography variant="h5" component="h2" gutterBottom>
-                    Discover the best properties with our AI-powered search
-                </Typography>
-                <Typography variant="body1">Type a location, feature, or any keyword into the search bar to get started!</Typography>
-            </Container>
             <Box
-                component="footer"
                 sx={{
-                    py: 3,
-                    px: 2,
-                    mt: 'auto',
-                    bg: 'primary.main', // Styling footer with primary color
-                    color: 'white'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minHeight: '100vh',
+                    bg: '#f5f5f5', // Light gray background for a subtle differentiation
                 }}
             >
-                <Container maxWidth="sm">
-                    <Typography variant="body1">
-                        For VTHacks 11
+                <ButtonAppBar />
+                <CssBaseline />
+                <Container
+                    component="main"
+                    sx={{
+                        mt: 8,
+                        mb: 2,
+                        p: 4,
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        bg: 'white',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center'  // This centers the child elements horizontally
+                    }}
+                    maxWidth="md"
+                >
+                    <Typography variant="h2" component="h1" gutterBottom>
+                        NLP Real Estate Searcher
                     </Typography>
-                    <Footer />
+                    <SearchBar />
+                    <br />
+                    <Typography variant="h5" component="h2" gutterBottom>
+                        Discover the best properties with our AI-powered search
+                    </Typography>
+                    <Typography variant="h5" component={ "h2"}>
+                        Describe your ideal home.
+                    </Typography>
                 </Container>
             </Box>
-        </Box>
         </ThemeProvider>
     )
 }

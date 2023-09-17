@@ -7,35 +7,26 @@ import {
   import { useState } from "react";
   import "./OverallMapsPage.css";
   import getGoogleMapsAPIKey from "./ApiKeys";
-import { useContext } from "react";
-import { MarkersContext } from "./MarkersContext";  // Import the context
-
-
-const App = () => {
+  import { markers } from "./SearchPage.js"
+  
+  const App = () => {
     const { isLoaded } = useLoadScript({
       googleMapsApiKey: getGoogleMapsAPIKey(),
     });
     const [mapRef, setMapRef] = useState();
     const [isOpen, setIsOpen] = useState(false);
     const [infoWindowData, setInfoWindowData] = useState();
-    // const markers = [
-    //   { address: "Address1", lat: 1, lng: 3 },
-    //   { address: "Address2", lat: 2, lng: 2 },
-    //   { address: "Address3", lat: 3, lng: 1 },
-    // ];
-    const { markers } = useContext(MarkersContext);  // Use the context
 
     const onMapLoad = (map) => {
       setMapRef(map);
       const bounds = new window.google.maps.LatLngBounds();
-      markers?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+      markers?.forEach(({ latitude, longitude }) => bounds.extend({ lat:latitude, lng:longitude }));
       map.fitBounds(bounds);
     };
   
-    const handleMarkerClick = (id, lat, lng, address) => {
-      mapRef?.panTo({ lat, lng });
-      setInfoWindowData({ id, address });
-      setIsOpen(true);
+    const handleMarkerClick = (id, latitude, longitude) => {
+      mapRef?.panTo({ lat:latitude, lng:longitude });
+
     };
   
     return (
@@ -48,12 +39,12 @@ const App = () => {
             onLoad={onMapLoad}
             onClick={() => setIsOpen(false)}
           >
-            {markers.map(({ address, lat, lng }, ind) => (
+            {markers.map(({ latitude, longitude }, ind) => (
               <MarkerF
                 key={ind}
-                position={{ lat, lng }}
+                position={{ lat:latitude, lng:longitude }}
                 onClick={() => {
-                  handleMarkerClick(ind, lat, lng, address);
+                  handleMarkerClick(ind, latitude, longitude);
                 }}
               >
                 {isOpen && infoWindowData?.id === ind && (
@@ -62,7 +53,12 @@ const App = () => {
                       setIsOpen(false);
                     }}
                   >
-                    <h3>{infoWindowData.address}</h3>
+                    <div>
+                      <h1>Property at {longitude} {latitude}</h1>
+                      <p>Price: ${markers[ind].other_data.price}</p>
+                      <p>Bedrooms: {markers[ind].other_data.bedrooms} bedrooms</p>
+                      <p>Square Footage: {markers[ind].other_data.sqft_living} feet squared</p>
+                    </div>
                   </InfoWindow>
                 )}
               </MarkerF>
