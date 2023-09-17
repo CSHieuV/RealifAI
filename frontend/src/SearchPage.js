@@ -3,14 +3,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import Link from "@mui/material/Link";
-import {AppBar, Button, IconButton, InputAdornment, TextField, Toolbar} from "@mui/material";
+import {AppBar, IconButton, InputAdornment, TextField, Toolbar} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { CircularProgress, Tooltip } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import "@fontsource/quicksand";
 import { useNavigate } from 'react-router-dom';
+import {useState} from "react";
 
 export let markers = null;
 let isLoading = false; // Dummy variable for loading state
@@ -46,7 +46,6 @@ function fetchFromBackend(value) {
         .then(response => {return response.json()})
         .then(responseData => {
             markers = responseData;
-            console.log(markers)
         })
         .catch(error => {
             console.error('There was an error!', error);
@@ -70,9 +69,16 @@ function SearchBar() {
         }
     };
 
+    const [textValue, setTextValue] = useState('');
+    const handleChange = (event) => {
+        setTextValue(event.target.value);
+    }
+
     return (
         <div>
             <TextField
+                value={textValue}
+                onChange={handleChange}
                 label="Search (Ex: I want a house far away from the ocean!)"
                 placeholder="Your ideals lie here!"
                 id="filled-start-adornment"
@@ -85,14 +91,18 @@ function SearchBar() {
                         <InputAdornment position='end'>
                             <Tooltip title="Search">
                                 <span>
-                                    <IconButton href="maps_overall"
+                                    <IconButton
                                     type="button"
                                                 sx={{ p: '10px' }}
                                                 aria-label="search"
                                                 disabled={isLoading}
                                                 onClick={(e) => {
                                                     setLoading(true);
-                                                    fetchFromBackend(e.target.value);
+                                                    fetchFromBackend(textValue).then(() => {
+                                                        if (textValue) {
+                                                            navigate('/maps_overall');
+                                                        }
+                                                    });
                                                 }}>
                                         {isLoading ? <CircularProgress size={24} /> : <SearchIcon />}
                                     </IconButton>
@@ -145,22 +155,6 @@ export default function SearchPage() {
                         Describe your ideal home.
                     </Typography>
                 </Container>
-                <Box
-                    component="footer"
-                    sx={{
-                        py: 3,
-                        px: 2,
-                        mt: 'auto',
-                        bg: 'primary.main', // Styling footer with primary color
-                        color: 'white'
-                    }}
-                >
-                    <Container maxWidth="sm">
-                        <Typography variant="body1">
-                            For VTHacks 11
-                        </Typography>
-                    </Container>
-                </Box>
             </Box>
         </ThemeProvider>
     )

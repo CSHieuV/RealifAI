@@ -13,9 +13,10 @@ df = pd.read_csv('backend/DC.csv')
 
 df['ocean_proximity'] = 1
 
+
 # Save the DataFrame to a CSV file
 
-file_path = "backend/DC.csv"
+file_path = "DC.csv"
 df.to_csv(file_path, index=False)
 
 print(f"Updated data saved to: {file_path}")
