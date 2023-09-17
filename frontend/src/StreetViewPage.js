@@ -21,7 +21,7 @@ function DescriptionBar() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     NLPRealEstate
                 </Typography>
-                <Typography variant="p" component="div" sx={{ flexGrow: 1, marginLeft:2, marginRight:2 }}>
+                <Typography variant="p" component="div" sx={{ flexGrow: 1, marginLeft:10, marginRight:10}}>
                     {markers[marker_ind].description}
                 </Typography>
                 <IconButton edge="end" color="inherit" aria-label="back"
