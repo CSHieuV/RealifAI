@@ -21,7 +21,7 @@ function DescriptionBar(props) {
                     <HomeIcon />
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    NLPRealEstate
+                    RealifAI
                 </Typography>
                 <Typography variant="p" component="div" sx={{ flexGrow: 1, marginLeft:2, marginRight:2 }}>
                     {props.description}
