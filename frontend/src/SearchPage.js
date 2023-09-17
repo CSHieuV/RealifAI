@@ -21,17 +21,6 @@ const theme = createTheme({
     },
 });
 
-function Footer() {
-    return (
-        <Typography variant="body2" color="text.secondary">
-            {'Created using an '}
-            <Link color="inherit" href="https://mui.com/material-ui/getting-started/templates/">
-                MUI Template
-            </Link>
-            {'.'}
-        </Typography>
-    );
-}
 function ButtonAppBar() {
     return (
         <AppBar position="static">
@@ -149,7 +138,6 @@ export default function SearchPage() {
                     <Typography variant="body1">
                         For VTHacks 11
                     </Typography>
-                    <Footer />
                 </Container>
             </Box>
         </Box>
