@@ -4,11 +4,15 @@ import {
   MarkerF,
   useLoadScript,
 } from "@react-google-maps/api";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./OverallMapsPage.css";
 import getGoogleMapsAPIKey from "./ApiKeys";
-import {ButtonAppBar, markers} from "./SearchPage.js"
+import {markers, query} from "./SearchPage.js"
 import {useNavigate} from "react-router-dom";
+import {AppBar, IconButton, Toolbar} from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import Typography from "@mui/material/Typography";
+
 export let marker_ind = 0;
 
 const App = () => {
@@ -20,6 +24,23 @@ const App = () => {
   const [infoWindowData, setInfoWindowData] = useState();
   const navigate = useNavigate();
 
+  function QueryBar() {
+    return (
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton href={'.'} edge="start" color="inherit" aria-label="home">
+              <HomeIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              NLPRealEstate
+            </Typography>
+            <Typography variant="p" component="div" sx={{ flexGrow: 1, marginLeft:10, marginRight:10}}>
+              {query}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+    );
+  }
 
   // const markers = [
   //   {
@@ -78,7 +99,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <ButtonAppBar />
+      <QueryBar />
       {!isLoaded ? (
         <h1>Loading...</h1>
       ) : (

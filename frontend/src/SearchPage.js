@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import {useState} from "react";
 
 export let markers = null;
+export let query = "";
 let isLoading = false; // Dummy variable for loading state
 
 const theme = createTheme({
@@ -45,6 +46,7 @@ function fetchFromBackend(value) {
     })
         .then(response => {return response.json()})
         .then(responseData => {
+            query = "Your query: " + value;
             markers = responseData;
             console.log(markers)
         })
