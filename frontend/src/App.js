@@ -36,14 +36,12 @@ function SearchBar() {
 
 export default function App() {
   return (
-      <ThemeProvider theme={defaultTheme}>
-          <BrowserRouter>
-              <Routes>
-                  <Route path="/" element={<SearchPage />}/>
-                  <Route path="maps_overall" element={< OverallMapsPage/>}/>
-                  <Route path="street_view" element={< StreetViewPage/>}/>
-              </Routes>
-          </BrowserRouter>
-      </ThemeProvider>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<SearchPage />}/>
+              <Route path="maps_overall" element={< OverallMapsPage/>}/>
+              <Route path="street_view" element={< StreetViewPage/>}/>
+          </Routes>
+      </BrowserRouter>
   );
 }
