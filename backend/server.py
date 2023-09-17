@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 from backend.HousingReqs import HousingReqs
 from backend.HousingResult import HousingResult
-from backend.language_translator import find_reqs
+from backend.language_translator import find_reqs, get_desc
 from backend.search import n_closest_houses
 
 app = Flask(__name__)
@@ -51,7 +51,9 @@ def get_description():
     if not house_data:
         return jsonify({"error": "house parameter is missing"}), 400
 
-    return """{"description": "test desc"}"""
+    description = get_desc(query_text, house_data)
+    description_res = {"description": description}
+    return jsonify(description_res)
 
 
 if __name__ == '__main__':

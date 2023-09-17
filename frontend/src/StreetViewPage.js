@@ -44,8 +44,10 @@ function fetchFromBackend(house) {
     }), {
         options: 'GET',
     })
-        .then(response => {return response.json()})
-        .catch(error => {
+        .then(response => {
+            console.log(response)
+            return response.json()
+        }).catch(error => {
             console.error('There was an error!', error);
         });
 }

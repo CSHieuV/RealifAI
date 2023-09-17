@@ -43,7 +43,7 @@ const App = () => {
                 component="div"
                 style={{ fontFamily: 'Quicksand', marginLeft:10, marginRight:0 }}
             >
-              {query}
+              Your query: {query}
             </Typography>
           </Toolbar>
         </AppBar>

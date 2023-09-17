@@ -40,10 +40,10 @@ def find_reqs(query: str) -> HousingReqs:
         return housing_reqs
 
 
-def get_desc(housing_query: str, housing_res: HousingResult) -> str:
+def get_desc(housing_query: str, housing_res: str) -> str:
     with open("HousingDescriptionPrompt.txt", "r") as f:
         prompt = f.read().replace("{Original-Request}", housing_query)
-        prompt.replace("{House-Data}", str(housing_res.other_data))
+        prompt.replace("{House-Data}", housing_res)
         completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", temperature=0,
                                                   messages=[{"role": "user", "content": prompt}])
         desc = completion.choices[0].message.content

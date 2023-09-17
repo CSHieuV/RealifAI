@@ -46,9 +46,8 @@ function fetchFromBackend(value) {
     })
         .then(response => {return response.json()})
         .then(responseData => {
-            query = "Your query: " + value;
+            query = value;
             markers = responseData;
-            console.log(markers)
         })
         .catch(error => {
             console.error('There was an error!', error);
@@ -66,7 +65,6 @@ function SearchBar() {
             fetchFromBackend(value)
                 .then(() => {
                     if (value) {
-                        query_text = value;
                         navigate('/maps_overall');
                     }
                 });
