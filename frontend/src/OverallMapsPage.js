@@ -71,13 +71,18 @@ const App = () => {
     setIsOpen(true);
   };
 
+  const style = {
+      maxWidth: "100%",
+      maxHeight: "91.3vh"
+  }
+
   return (
     <div className="App">
       <ButtonAppBar />
       {!isLoaded ? (
         <h1>Loading...</h1>
       ) : (
-        <GoogleMap
+        <GoogleMap mapContainerStyle={style}
           mapContainerClassName="map-container"
           onLoad={onMapLoad}
           onClick={() => setIsOpen(false)}
