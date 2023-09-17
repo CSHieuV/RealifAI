@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@fontsource/quicksand": "^5.0.8",
+    "react-streetview": "^1.1.1"
+  }
+}
