@@ -34,7 +34,11 @@ const App = () => {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               NLPRealEstate
             </Typography>
-            <Typography variant="p" component="div" sx={{ flexGrow: 1, marginLeft:10, marginRight:10}}>
+            <Typography
+                variant="p"
+                component="div"
+                style={{ fontFamily: 'Quicksand', marginLeft:10, marginRight:0 }}
+            >
               {query}
             </Typography>
           </Toolbar>
