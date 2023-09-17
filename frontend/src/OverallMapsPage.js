@@ -26,8 +26,7 @@ import {
   
     const handleMarkerClick = (id, latitude, longitude) => {
       mapRef?.panTo({ lat:latitude, lng:longitude });
-      setInfoWindowData({ id });
-      setIsOpen(true);
+
     };
   
     return (
@@ -54,7 +53,12 @@ import {
                       setIsOpen(false);
                     }}
                   >
-                    <h3>{infoWindowData.id}</h3>
+                    <div>
+                      <h1>Property at {longitude} {latitude}</h1>
+                      <p>Price: ${markers[ind].other_data.price}</p>
+                      <p>Bedrooms: {markers[ind].other_data.bedrooms} bedrooms</p>
+                      <p>Square Footage: {markers[ind].other_data.sqft_living} feet squared</p>
+                    </div>
                   </InfoWindow>
                 )}
               </MarkerF>
