@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-df = pd.read_csv('backend/DC.csv')
+df = pd.read_csv('../backend/DC.csv')
 
 # getting rid of all null datapoints
 # df = df.dropna()
@@ -16,7 +16,7 @@ df['ocean_proximity'] = 0
 
 # Save the DataFrame to a CSV file
 
-file_path = "backend/DC.csv"
+file_path = "../backend/DC.csv"
 df.to_csv(file_path, index=False)
 
 print(f"Updated data saved to: {file_path}")

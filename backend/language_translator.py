@@ -2,7 +2,6 @@ import json
 
 import openai
 from backend.HousingReqs import HousingReqs
-from backend.HousingResult import HousingResult
 
 
 def read_env():
