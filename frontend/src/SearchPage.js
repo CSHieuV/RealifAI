@@ -160,22 +160,6 @@ export default function SearchPage() {
                         Describe your ideal home.
                     </Typography>
                 </Container>
-                <Box
-                    component="footer"
-                    sx={{
-                        py: 3,
-                        px: 2,
-                        mt: 'auto',
-                        bg: 'primary.main', // Styling footer with primary color
-                        color: 'white'
-                    }}
-                >
-                    <Container maxWidth="sm">
-                        <Typography variant="body1">
-                            For VTHacks 11
-                        </Typography>
-                    </Container>
-                </Box>
             </Box>
         </ThemeProvider>
     )
