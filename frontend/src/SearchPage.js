@@ -30,7 +30,7 @@ export function ButtonAppBar() {
                     <HomeIcon />
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    NLPRealEstate
+                    RealifAI
                 </Typography>
             </Toolbar>
         </AppBar>
@@ -162,7 +162,7 @@ export default function SearchPage() {
                     maxWidth="md"
                 >
                     <Typography variant="h2" component="h1" gutterBottom>
-                        NLP Real Estate Searcher
+                        RealifAI
                     </Typography>
                     <SearchBar />
                     <br />
