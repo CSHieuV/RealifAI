@@ -8,6 +8,8 @@ import { useState } from "react";
 import "./OverallMapsPage.css";
 import getGoogleMapsAPIKey from "./ApiKeys";
 import { markers } from "./SearchPage.js"
+import {useNavigate} from "react-router-dom";
+export let marker_ind = 0;
 
 const App = () => {
   const { isLoaded } = useLoadScript({
@@ -16,6 +18,8 @@ const App = () => {
   const [mapRef, setMapRef] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [infoWindowData, setInfoWindowData] = useState();
+  const navigate = useNavigate();
+
 
   // const markers = [
   //   {
@@ -97,6 +101,11 @@ const App = () => {
                     <p>Price: ${markers[ind].other_data.price}</p>
                     <p>Bedrooms: {markers[ind].other_data.bedrooms} bedrooms</p>
                     <p>Square Footage: {markers[ind].other_data.sqft_living} feet squared</p>
+                    <a style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }} onClick={()=>{
+                      console.log("clicked lat" + latitude + " long: " + longitude);
+                      marker_ind = ind;
+                      navigate("/street_view");
+                    }}>Click to view!</a>
                   </div>
                 </InfoWindow>
               )}

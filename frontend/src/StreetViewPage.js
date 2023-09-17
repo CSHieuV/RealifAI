@@ -5,6 +5,8 @@ import {AppBar, IconButton, Toolbar} from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import Typography from "@mui/material/Typography";
 import {ArrowBack} from "@mui/icons-material";
+import {marker_ind} from "./OverallMapsPage";
+import {markers} from "./SearchPage";
 
 function DescriptionBar() {
     return (
@@ -31,7 +33,7 @@ export default function StreetViewPage() {
     const googleMapsApiKey = getGoogleMapsAPIKey()
     // see https://developers.google.com/maps/documentation/javascript/3.exp/reference#StreetViewPanoramaOptions
     const streetViewPanoramaOptions = {
-        position: {lat: 47.6168, lng: -122.045},
+        position: {lat: markers[marker_ind].latitude, lng: markers[marker_ind].longitude},
         pov: {heading: 100, pitch: 0},
         zoom: 1
     };
