@@ -7,10 +7,6 @@ import StreetViewPage from "./StreetViewPage";
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-
 function SearchBar() {
   const [search, setSearch] = useState("");
 
