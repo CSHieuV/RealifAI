@@ -97,7 +97,7 @@ function SearchBar() {
                             borderColor: 'gray',
                         },
                         '&.Mui-focused fieldset': {
-                            borderColor: 'gray',
+                            borderColor: 'blue',
                         },
                     },
                 }}
