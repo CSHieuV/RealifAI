@@ -7,8 +7,11 @@ import Typography from "@mui/material/Typography";
 import {ArrowBack} from "@mui/icons-material";
 import {marker_ind} from "./OverallMapsPage";
 import {markers} from "./SearchPage";
+import { useNavigate } from 'react-router-dom';
 
 function DescriptionBar() {
+    const navigate = useNavigate();
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -18,10 +21,11 @@ function DescriptionBar() {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     NLPRealEstate
                 </Typography>
-                <Typography variant="p" component="div" sx={{ flexGrow: 1 }}>
-                    Placeholder text
+                <Typography variant="p" component="div" sx={{ flexGrow: 1, marginLeft:2, marginRight:2 }}>
+                    {markers[marker_ind].description}
                 </Typography>
-                <IconButton edge="end" color="inherit" aria-label="back">
+                <IconButton edge="end" color="inherit" aria-label="back"
+                onClick={(e) => navigate('/maps_overall')}>
                     <ArrowBack />
                 </IconButton>
             </Toolbar>

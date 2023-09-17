@@ -21,11 +21,11 @@ const theme = createTheme({
     },
 });
 
-function ButtonAppBar() {
+export function ButtonAppBar() {
     return (
         <AppBar position="static">
             <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="home">
+                <IconButton href={'.'} edge="start" color="inherit" aria-label="home">
                     <HomeIcon />
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -46,6 +46,7 @@ function fetchFromBackend(value) {
         .then(response => {return response.json()})
         .then(responseData => {
             markers = responseData;
+            console.log(markers)
         })
         .catch(error => {
             console.error('There was an error!', error);

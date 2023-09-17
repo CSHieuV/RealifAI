@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import "./OverallMapsPage.css";
 import getGoogleMapsAPIKey from "./ApiKeys";
-import { markers } from "./SearchPage.js"
+import {ButtonAppBar, markers} from "./SearchPage.js"
 import {useNavigate} from "react-router-dom";
 export let marker_ind = 0;
 
@@ -73,6 +73,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <ButtonAppBar />
       {!isLoaded ? (
         <h1>Loading...</h1>
       ) : (
@@ -112,6 +113,7 @@ const App = () => {
             </MarkerF>
           ))}
         </GoogleMap>
+
       )}
     </div>
   );
