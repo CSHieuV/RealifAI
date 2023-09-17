@@ -46,6 +46,7 @@ function fetchFromBackend(value) {
         .then(response => {return response.json()})
         .then(responseData => {
             markers = responseData;
+            console.log(markers)
         })
         .catch(error => {
             console.error('There was an error!', error);
