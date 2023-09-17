@@ -1,7 +1,7 @@
 import {
   GoogleMap,
   InfoWindow,
-  MarkerF,
+  Marker,
   useLoadScript,
 } from "@react-google-maps/api";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import {ButtonAppBar, markers} from "./SearchPage.js"
 import {useNavigate} from "react-router-dom";
 export let marker_ind = 0;
 
+
 const App = () => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: getGoogleMapsAPIKey(),
@@ -19,6 +20,9 @@ const App = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [infoWindowData, setInfoWindowData] = useState();
   const navigate = useNavigate();
+  const [selectedMarker, setSelectedMarker] = useState(null);
+
+
 
 
   // const markers = [
@@ -88,18 +92,19 @@ const App = () => {
           onClick={() => setIsOpen(false)}
         >
           {markers.map(({ latitude, longitude }, ind) => (
-            <MarkerF
+            <Marker
               key={ind}
               position={{ lat:latitude, lng:longitude }}
               defaultClickable={false}
               onClick={() => {
                 handleMarkerClick(ind, latitude, longitude);
+                setSelectedMarker(markers[ind])
               }}
             >
               {isOpen && infoWindowData?.id === ind && (
                 <InfoWindow
                   onCloseClick={() => {
-                    setIsOpen(false);
+                    setSelectedMarker(null);
                   }}
                 >
                   <div>
@@ -115,7 +120,7 @@ const App = () => {
                   </div>
                 </InfoWindow>
               )}
-            </MarkerF>
+            </Marker>
           ))}
         </GoogleMap>
 
