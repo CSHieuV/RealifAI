@@ -8,7 +8,7 @@ import {ArrowBack} from "@mui/icons-material";
 import {marker_ind} from "./OverallMapsPage";
 import {markers} from "./SearchPage";
 import { useNavigate } from 'react-router-dom';
-import { query_text } from "./SearchPage";
+import { query } from "./SearchPage";
 
 
 function DescriptionBar(props) {
@@ -37,9 +37,9 @@ function DescriptionBar(props) {
 
 function fetchFromBackend(house) {
     const apiURL = "http://localhost:5000/description_query?"
-    console.log("fetching text: " + query_text + " house: " + JSON.stringify(house));
+    console.log("fetching text: " + query + " house: " + JSON.stringify(house));
     return fetch(apiURL + new URLSearchParams({
-        query_text: query_text,
+        query_text: query,
         house: JSON.stringify(house)
     }), {
         options: 'GET',

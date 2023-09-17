@@ -21,6 +21,8 @@ df = pd.read_csv('backend/KansasCity.csv')
 
 # df = df.drop(columns=['floors'])
 
+df['ocean_proximity'] = 1
+
 # Save the DataFrame to a CSV file
 file_path = "backend/KansasCity.csv"
 df.to_csv(file_path, index=False)

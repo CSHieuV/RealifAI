@@ -1,15 +1,20 @@
 import {
   GoogleMap,
   InfoWindow,
-  MarkerF,
+  Marker,
   useLoadScript,
 } from "@react-google-maps/api";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./OverallMapsPage.css";
 import getGoogleMapsAPIKey from "./ApiKeys";
-import {ButtonAppBar, markers} from "./SearchPage.js"
+import {markers, query} from "./SearchPage.js"
 import {useNavigate} from "react-router-dom";
+import {AppBar, IconButton, Toolbar} from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import Typography from "@mui/material/Typography";
+
 export let marker_ind = 0;
+
 
 const App = () => {
   const { isLoaded } = useLoadScript({
@@ -19,7 +24,31 @@ const App = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [infoWindowData, setInfoWindowData] = useState();
   const navigate = useNavigate();
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
+
+
+  function QueryBar() {
+    return (
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton href={'.'} edge="start" color="inherit" aria-label="home">
+              <HomeIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              NLPRealEstate
+            </Typography>
+            <Typography
+                variant="p"
+                component="div"
+                style={{ fontFamily: 'Quicksand', marginLeft:10, marginRight:0 }}
+            >
+              {query}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+    );
+  }
 
   // const markers = [
   //   {
@@ -71,30 +100,36 @@ const App = () => {
     setIsOpen(true);
   };
 
+  const style = {
+      maxWidth: "100%",
+      maxHeight: "91.3vh"
+  }
+
   return (
     <div className="App">
-      <ButtonAppBar />
+      <QueryBar />
       {!isLoaded ? (
         <h1>Loading...</h1>
       ) : (
-        <GoogleMap
+        <GoogleMap mapContainerStyle={style}
           mapContainerClassName="map-container"
           onLoad={onMapLoad}
           onClick={() => setIsOpen(false)}
         >
           {markers.map(({ latitude, longitude }, ind) => (
-            <MarkerF
+            <Marker
               key={ind}
               position={{ lat:latitude, lng:longitude }}
               defaultClickable={false}
               onClick={() => {
                 handleMarkerClick(ind, latitude, longitude);
+                setSelectedMarker(markers[ind])
               }}
             >
               {isOpen && infoWindowData?.id === ind && (
                 <InfoWindow
                   onCloseClick={() => {
-                    setIsOpen(false);
+                    setSelectedMarker(null);
                   }}
                 >
                   <div>
@@ -110,7 +145,7 @@ const App = () => {
                   </div>
                 </InfoWindow>
               )}
-            </MarkerF>
+            </Marker>
           ))}
         </GoogleMap>
 

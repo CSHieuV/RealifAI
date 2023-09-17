@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import {useState} from "react";
 
 export let markers = null;
-export let query_text = null;
+export let query = "";
 let isLoading = false; // Dummy variable for loading state
 
 const theme = createTheme({
@@ -46,6 +46,7 @@ function fetchFromBackend(value) {
     })
         .then(response => {return response.json()})
         .then(responseData => {
+            query = "Your query: " + value;
             markers = responseData;
             console.log(markers)
         })
@@ -82,7 +83,7 @@ function SearchBar() {
             <TextField
                 value={textValue}
                 onChange={handleChange}
-                label="Search (Ex: I want a house far away from the ocean!)"
+                label="Search (Ex: I want a house close to the ocean!)"
                 placeholder="Your ideals lie here!"
                 id="filled-start-adornment"
                 sx={{
@@ -97,7 +98,7 @@ function SearchBar() {
                             borderColor: 'gray',
                         },
                         '&.Mui-focused fieldset': {
-                            borderColor: 'gray',
+                            borderColor: 'blue',
                         },
                     },
                 }}
