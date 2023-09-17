@@ -3,3 +3,4 @@ backend/.env
 frontend/src/.env
 package-lock.json
 .idea
+yarn.lock
