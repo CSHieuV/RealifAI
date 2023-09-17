@@ -11,6 +11,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import "@fontsource/quicksand";
 import { useNavigate } from 'react-router-dom';
+import {useRef, useState} from "react";
 
 export let markers = null;
 let isLoading = false; // Dummy variable for loading state
@@ -37,6 +38,7 @@ function ButtonAppBar() {
 }
 
 function fetchFromBackend(value) {
+    console.log("called fetch with params " + value);
     const apiURL = "http://localhost:5000/housing_query?"
     return fetch(apiURL + new URLSearchParams({
         query_text: value,
@@ -70,9 +72,16 @@ function SearchBar() {
         }
     };
 
+    const [textValue, setTextValue] = useState('');
+    const handleChange = (event) => {
+        setTextValue(event.target.value);
+    }
+
     return (
         <div>
             <TextField
+                value={textValue}
+                onChange={handleChange}
                 label="Search (Ex: I want a house far away from the ocean!)"
                 placeholder="Your ideals lie here!"
                 id="filled-start-adornment"
@@ -85,14 +94,20 @@ function SearchBar() {
                         <InputAdornment position='end'>
                             <Tooltip title="Search">
                                 <span>
-                                    <IconButton href="maps_overall"
+                                    <IconButton
                                     type="button"
                                                 sx={{ p: '10px' }}
                                                 aria-label="search"
                                                 disabled={isLoading}
                                                 onClick={(e) => {
                                                     setLoading(true);
-                                                    fetchFromBackend(e.target.value);
+                                                    console.log(textValue);
+                                                    // console.log(inputRef.current.value);
+                                                    fetchFromBackend(textValue).then(() => {
+                                                        if (textValue) {
+                                                            navigate('/maps_overall');
+                                                        }
+                                                    });
                                                 }}>
                                         {isLoading ? <CircularProgress size={24} /> : <SearchIcon />}
                                     </IconButton>
