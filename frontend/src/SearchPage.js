@@ -36,7 +36,7 @@ function ButtonAppBar() {
     );
 }
 
-function fetchFromBackend(value) {
+function fetchFromBackend(value, set_curr_page) {
     const apiURL = "http://localhost:5000/housing_query?"
     // GET Request that puts data into responseData;
     fetch(apiURL + new URLSearchParams({
@@ -48,12 +48,15 @@ function fetchFromBackend(value) {
         .then(responseData => {
             markers = responseData;
             console.log(markers)
+            set_curr_page((old)=>{
+               return "maps_overall";
+            });
         })
         .catch(error => {
             console.error('There was an error!', error);
         });
 }
-function SearchBar() {
+function SearchBar(props) {
     const [loading, setLoading] = React.useState(false); // State to handle loading
 
     const handleEnter = (e) => {
@@ -61,7 +64,7 @@ function SearchBar() {
             e.preventDefault();
             setLoading(true);
             const value = e.target.value;
-            fetchFromBackend(value)
+            fetchFromBackend(value, props.set_curr_page)
         }
     };
 
@@ -86,7 +89,7 @@ function SearchBar() {
                                                 disabled={isLoading}
                                                 onClick={(e) => {
                                                     setLoading(true);
-                                                    fetchFromBackend(e.target.value);
+                                                    fetchFromBackend(e.target.value, props.set_curr_page);
                                                 }}>
                                         {isLoading ? <CircularProgress size={24} /> : <SearchIcon />}
                                     </IconButton>
@@ -100,7 +103,7 @@ function SearchBar() {
     );
 }
 
-export default function SearchPage() {
+export default function SearchPage(props) {
     return (
         <ThemeProvider theme={theme}>
         <Box
@@ -117,7 +120,7 @@ export default function SearchPage() {
                 <Typography variant="h2" component="h1" gutterBottom>
                     NLP Real Estate Searcher
                 </Typography>
-                <SearchBar />
+                <SearchBar set_curr_page={props.set_curr_page} />
                 <br />
                 <Typography variant="h5" component="h2" gutterBottom>
                     Discover the best properties with our AI-powered search
