@@ -13,8 +13,8 @@ export default function StreetViewPage() {
 
     return (
         <div style={{
-            width: '800px',
-            height: '450px',
+            width: '100%',
+            height: '100vh',
             backgroundColor: '#eeeeee'
         }}>
             <ReactStreetview
