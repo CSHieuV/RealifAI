@@ -18,6 +18,14 @@ longitude=-122.341, latitude=47.7025, other_data={'price': '385000.0', 'bedrooms
 Result:
 This house meets your preference of being distant from the ocean with no ocean proximity, and at a price of $385,000, it's under your budget. Its 4 bedrooms also offer ample space for 3 people in its 1,620 sqft living area.
 
+Example 3:
+Original Request:
+I want a house far from the ocean for 5 people
+House:
+"bathrooms":"2.25","bedrooms":"5","ocean_proximity":"1","price":"1325000.0","sqft_living":"3200","yr_changed":"1965.0"
+Result:
+This house is a great fit for your request as it is far from the ocean with no ocean proximity. With 5 bedrooms, it provides ample space for 5 people to comfortably live in.
+
 Your Prompt:
 Original Request:
 "{Original-Request}"

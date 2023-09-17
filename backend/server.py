@@ -34,6 +34,7 @@ def return_json():
     if not housing_query:
         return jsonify({"error": "query_text parameter is missing"}), 400
     housing_reqs: HousingReqs = find_reqs(housing_query)
+    print(f"query: {housing_query}     reqs: {housing_reqs}\n\n")
     houses_result = n_closest_houses(housing_query, housing_reqs)
     # houses_result = get_mock_houses_list()
     payload = jsonify(houses_result)

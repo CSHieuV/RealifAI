@@ -20,6 +20,14 @@ result:
 "newer_housing": false
 }
 explanation: They want a house above $454000, so that is the minimum price. They want a house for them and their 5 friends, so the total is 6 people. They also say they want to be near the ocean, so water is true. They say they want a 10000 sq ft house, square_ft is set to 10000. They want a new house, so newer_housing is set to true. The user mentions a location of Virginia, but Virginia is not one of the possible locations, so do not include the location field.
+Example 3
+query: "I want a house far from the ocean for 5 people"
+result:
+{
+"people_num": 5,
+"water": "false"
+}
+explanation: They want a house for 5 people, so people_num is set to 5. They want to be far from the Ocean, so water is false.
 Using the above, respond to the request below. Output only your json response and nothing else. Think for yourself.
 
 "{Prompt-Text}"
