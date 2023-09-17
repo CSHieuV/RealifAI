@@ -82,10 +82,25 @@ function SearchBar() {
                 label="Search (Ex: I want a house far away from the ocean!)"
                 placeholder="Your ideals lie here!"
                 id="filled-start-adornment"
-                sx={{ m: 1, width: '50ch' }}
+                sx={{
+                    m: 1,
+                    width: '50ch',
+                    borderRadius: '25px',
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderRadius: '25px',
+                        },
+                        '&:hover fieldset': {
+                            borderColor: 'gray',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: 'gray',
+                        },
+                    },
+                }}
                 onKeyDown={(e) => handleEnter(e)}
                 helperText="Press enter to submit"
-                variant="filled"
+                variant="outlined"
                 InputProps={{
                     endAdornment: (
                         <InputAdornment position='end'>
