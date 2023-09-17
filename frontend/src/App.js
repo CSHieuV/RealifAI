@@ -6,7 +6,6 @@ import OverallMapsPage from './OverallMapsPage'
 import StreetViewPage from "./StreetViewPage";
 import { useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { MarkersProvider } from "./MarkersContext";
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -42,7 +41,6 @@ function SearchBar() {
 export default function App() {
   return (
       <ThemeProvider theme={defaultTheme}>
-          <MarkersProvider>
           <BrowserRouter>
               <Routes>
                   <Route path="/" element={<SearchPage />}/>
@@ -50,7 +48,6 @@ export default function App() {
                   <Route path="street_view" element={< StreetViewPage/>}/>
               </Routes>
           </BrowserRouter>
-          </MarkersProvider>
       </ThemeProvider>
   );
 }
